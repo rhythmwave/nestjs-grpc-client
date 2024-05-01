@@ -1,0 +1,299 @@
+syntax="proto3";
+
+package proto;
+option go_package = "pb/kegiatan";
+
+message PaginationKegiatanRequest {
+  string query = 1;
+  int32 page_number = 2;
+  int32 results_per_page = 3;
+}
+
+message GetRencanaKegiatanListRequest {
+    int32 kota = 1;
+    int32 gedung = 2;
+    string tahun_ajaran = 3;
+    int32 bidang = 4;
+    string bulan_awal = 5;
+    string bulan_akhir = 6;    
+    int32 page_number = 7;
+    int32 results_per_page = 8;
+}
+
+message RencanaKegiatan {
+    string kode_kegiatan = 1;
+    string kode_acuan = 2;
+    string nama_penanda = 3;
+    string nama_gedung = 4;
+    string nama_kegiatan_acuan = 5;
+    string nama_kegiatan = 6;
+    string bulan_kegiatan_awal = 7;
+    string bulan_kegiatan_akhir = 8;
+    string tahun_ajaran = 9;
+    string nama_bidang = 10;
+    string id_tingkat = 11;
+    string id_tujuan_tingkat = 12;
+    int32 target_kehadiran = 13;
+    int32 target_capaian = 14;
+    string status = 15;
+    string tgl_rencana = 16;
+    string tgl_usul_biaya_anggaran = 17;
+    string tgl_usul_biaya_barang = 18;
+    string tgl_verif_kacab_anggaran = 19;
+    string tgl_verif_kacab_barang = 20;
+    string tgl_verif_log = 21;
+    string tgl_verif_bid = 22;
+    string status_item_anggaran = 23;
+    string status_barang = 24;
+    string status_biaya = 25;
+    int64 total_biaya_anggaran = 26;
+    int64 total_biaya_barang = 27;
+    int64 total_anggaran = 28;
+    string tgl_usul_biaya = 29;
+    string tgl_verif_kacab = 30;
+}
+
+message RencanaKegiatanListRes {
+    repeated RencanaKegiatan rencana_kegiatan = 1;
+}
+
+message SetRencanaKegiatanRequest {
+    string kode_acuan = 1;
+    int32 id_gedung = 2;
+    string nama_kegiatan = 3;
+    string bulan_awal = 4;
+    string bulan_akhir = 5;
+    string tingkat_kelas = 6;
+    string tingkat_kelas_target = 7;
+    int32 target_kehadiran = 8;
+    int32 target_capaian = 9;
+    string tahun_ajaran = 10;
+    repeated DataSekolah data_sekolah = 11;
+    repeated DataKegiatanPengikut data_kegiatan_pengikut = 12;
+    bool is_kirim = 13;
+    string updater = 14;
+}
+
+message DataSekolah {
+  int32 id_sekolah = 1;
+  int32 target_kehadiran = 2;
+  int32 target_capaian = 3;
+}
+
+message DataKegiatanPengikut {
+  string kode_acuan = 1;
+  string kode_kegiatan = 2;
+  string nama_kegiatan = 3;
+  string bulan_kegiatan = 4;
+}
+
+message SetRencanaKegiatanResponse {
+  bool result = 1;
+  string data = 2;
+  int32 console = 3;
+}
+
+message GetKegiatanPengikutDetailRequest {
+  string kode_kegiatan = 1;
+}
+
+message GetKegiatanPengikutDetailData {
+  string kode_acuan = 1;
+  string nama_kegiatan_acuan = 2;
+  string kode_kegiatan = 3;
+  string nama_kegiatan = 4;
+  string kode_nama_kegiatan = 5;
+  string bulan_kegiatan = 6;
+  string tanggal_awal = 7;
+  string tanggal_akhir = 8;
+}
+
+message GetKegiatanPengikutDetailResponse {
+    bool result = 1;
+    repeated GetKegiatanPengikutDetailData data = 2;
+}
+
+message GetKepanitiaanData {
+  string kode_kegiatan = 1;
+  string kode_panitia = 2;
+  string nama_panitia = 3;
+  string nik = 4;
+  string nama_lengkap = 5;
+  string nama_karyawan = 6;
+}
+
+message GetKepanitiaanRequest {
+  string kode_kegiatan = 1;
+}
+
+message GetKepanitiaanResponse {
+    bool result = 1;
+    repeated GetKepanitiaanData data = 2;
+}
+
+message GetKegiatanSekolahData {
+  string kode_kegiatan = 1;
+  int32 id_sekolah = 2;
+  string nama_sekolah = 3;
+  int32 target_kehadiran = 4;
+  int32 target_capaian = 5;
+}
+
+message GetKegiatanSekolahRequest {
+  string kode_kegiatan = 1;
+}
+
+message GetKegiatanSekolahResponse {
+  bool result = 1;
+  repeated GetKegiatanSekolahData data = 2;
+}
+
+// To DO: Pending GetItemAnggaran
+message GetItemAnggaranData {
+  string kode = 1;
+  int32 kode_item_anggaran = 2;
+  string nama_sekolah = 3;
+  int32 target_kehadiran = 4;
+  int32 target_capaian = 5;
+}
+
+message GetItemAnggaranRequest {
+  string kode_kegiatan = 1;
+}
+
+message GetItemAnggaranResponse {
+  bool result = 1;
+  repeated GetKegiatanSekolahData data = 2;
+}
+
+message GetAcuanKegiatanData {
+  string kode_acuan = 1;
+  string nama_kegiatan = 2;
+  string nama_kegiatan_acuan = 3;
+  string tanggal_awal= 4;
+  string tanggal_akhir = 5;
+  int32 is_promosi = 6;
+  int32 is_pusat = 7;
+  int32 komar_login = 8;
+  int32 bid_login = 9;
+}
+
+message GetAcuanKegiatanRequest {
+  string tahun_ajaran = 1;
+  int32 bidang = 2;
+  int32 id_komar_cakupan = 3;
+  int32 id_bidang = 4;
+}
+
+message GetAcuanKegiatanResponse {
+  bool result = 1;
+  repeated GetAcuanKegiatanData data = 2;
+}
+
+message GetRencanaKegiatanData {
+  string kode_kegiatan = 1;
+  string kode_acuan = 2;
+  int32 id_gedung = 3;
+  string nama_kegiatan = 4;
+  string kode_nama_kegiatan = 5;
+  string bulan_kegiatan_awal = 6;
+  string bulan_kegiatan_akhir = 7;
+  int32 id_tingkat = 8;
+  int32 id_tujuan_tingkat = 9;
+  int32 target_kehadiran = 10;
+  int32 target_capaian = 11;
+  string status = 12;
+}
+
+message GetRencanaKegiatanRequest {
+  int32 gedung = 1;
+  string tahun_ajaran = 2;
+  string kode_acuan = 3;
+}
+
+message GetRencanaKegiatanResponse {
+  bool result = 1;
+  repeated GetRencanaKegiatanData data = 2;
+}
+
+message GetTargetSiswaData {
+  int32 id_gedung = 1;
+  string tahun_ajaran = 2;
+  int32 id_sekolah = 3;
+  string nama_sekolah = 4;
+  int32 id_tingkat = 5;
+  string tingkat_kelas = 6;
+  int32 jml_target = 7;
+}
+
+message GetTargetSiswaRequest {
+  int32 gedung = 1;
+  string tahun_ajaran = 2;
+}
+
+message GetTargetSiswaResponse {
+  bool result = 1;
+  repeated GetTargetSiswaData data = 2;
+}
+
+message GetKegiatanPengikutData {
+  string kode_acuan = 1;
+  string kode_kegiatan = 2;
+  string nama_kegiatan = 3;
+  string bulan_kegiatan = 4;
+  string tanggal_awal = 5;
+  string tanggal_akhir = 6; 
+}
+
+message GetKegiatanPengikutRequest {
+  string kode_acuan = 1;
+  string kode_kegiatan = 2;
+  int32 gedung = 3;
+  string tahun_ajaran = 4;
+}
+
+message GetKegiatanPengikutResponse {
+  bool result = 1;
+  repeated GetKegiatanPengikutData data = 2;
+}
+
+message GetBarangData {
+  string kode = 1;
+  string kode_barang = 2;
+  string nama_barang = 3;
+  int32 jumlah = 4;
+  int32 nilai_satuan = 5;
+  int32 id_satuan = 6;
+  string satuan = 7;
+  int32 total = 8;
+  int32 total_acc = 9;
+  int32 id_vendor = 10;
+  string nama_vendor = 11;
+  string dokumen = 12;
+  int32 is_pusat = 13;
+  string status = 14;
+  string split = 15;
+}
+
+message GetBarangRequest {
+  string kode_kegiatan = 1;
+}
+
+message GetBarangResponse {
+  bool result = 1;
+  repeated GetBarangData data = 2;
+}
+
+service KegiatanService {
+    rpc GetRencanaKegiatanList(GetRencanaKegiatanListRequest) returns (RencanaKegiatanListRes) {}
+    rpc CreateRencanaKegiatan(SetRencanaKegiatanRequest) returns (SetRencanaKegiatanResponse) {}
+    rpc GetKegiatanPengikut(GetKegiatanPengikutRequest) returns (GetKegiatanPengikutResponse) {}
+    rpc GetKegiatanPengikutDetail(GetKegiatanPengikutDetailRequest) returns (GetKegiatanPengikutDetailResponse) {}
+    rpc GetKepanitian(GetKepanitiaanRequest) returns (GetKepanitiaanResponse) {}
+    rpc GetKegiatanSekolah(GetKegiatanSekolahRequest) returns (GetKegiatanSekolahResponse) {}
+    rpc GetItemAggaran(GetItemAnggaranRequest) returns (GetItemAnggaranResponse) {}
+    rpc GetAcuanKegiatan(GetAcuanKegiatanRequest) returns (GetAcuanKegiatanResponse) {}
+    rpc GetRencanaKegiatan(GetRencanaKegiatanRequest) returns (GetRencanaKegiatanResponse) {}
+    rpc GetTargetSiswa(GetTargetSiswaRequest) returns (GetTargetSiswaResponse) {}
+    rpc GetBarang(GetBarangRequest) returns (GetBarangResponse) {}
+}
